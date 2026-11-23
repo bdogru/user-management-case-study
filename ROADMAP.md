@@ -48,7 +48,8 @@ details, email immutability, a unique email, optimistic locking, generated OpenA
 
 ### Step 2: Frontend
 
-> **Status: planned** — [plan/step-2.md](plan/step-2.md)
+> **Status: done** — 2/1 in PR #4 (screen and CI job), 2/2 in PR #5 (end-to-end run and docs).
+> [plan/step-2.md](plan/step-2.md)
 
 **What**: One Angular screen: the user table, one form for create and edit, one error line. CI
 builds the frontend.

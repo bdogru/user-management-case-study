@@ -19,3 +19,10 @@ changed the work, disputes and owner decisions.
   (`controller`, `service`, `repository`, `entity`, `dto`, `exception`), with only what another
   package uses left public.
 - **Disputes:** none. **Owner decisions:** keep `backend/.gitignore` (O-1).
+
+## Step 2 — Frontend
+
+- **PR #4 (screen and CI job).** Codex approved it in the first round, without findings.
+- **O-1 (PR #5).** The owner asked for a "How it was built" section in the README; the time figures
+  in it come from the owner.
+- **Disputes:** none. **Owner decisions:** none.

@@ -58,6 +58,21 @@ tab open.
 | B9 | Edit on Ivy; in a terminal run `curl -X PUT localhost:8080/api/users/1 -H 'Content-Type: application/json' -d '{"name":"Changed elsewhere","version":1}'`; in the browser change the name and Save | Error line shows the stale-version message; after a page reload the row shows `Changed elsewhere` |
 | B10 | Delete on Bob | Row removed |
 
+## End-to-end result
+
+Run on 2026-11-23 against the frontend of commit `6aa5759` (the head of PR #4) and the backend from
+`main`, in the browser pane of the Claude desktop app on Windows 10: **B1–B10 pass**. Clicks and
+typing went through the page's controls. Request bodies were recorded by wrapping `fetch` (Angular 22's
+`HttpClient` uses it), cross-checked against the browser's network log. All requests went through the
+dev-server proxy.
+
+- B7 and B9: the PUT body is `{"name":"…","version":…}`, without `email`.
+- B8: no request, per both the recorder and the network log.
+- The console shows only the browser's network lines for the intended 400 (B3) and 409 (B4, B9).
+- A first B6 attempt failed because of the automation, not the app: the app is zoneless and renders
+  just after the click, and the script typed into the email field before the edit-mode render. With a
+  one-second pause after each click, as a person would interact, B6 passes.
+
 ## Risks
 
 - `ng new` asks questions (analytics, AI tooling) that an agent cannot answer; every answer is
