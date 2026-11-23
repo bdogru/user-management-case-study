@@ -133,7 +133,7 @@ J='Content-Type: application/json'
 | E4 | E3 with `-H 'Accept-Language: tr-TR'` | the same English detail |
 | E5 | `curl -i -X POST $B -H "$J" -d '{"name":"Bob","email":"IVY.SMITH@example.com"}'` | 409, `A user with this email already exists` |
 | E6 | `curl -i -X POST $B -H "$J" -d '{"id":5,"name":"Bob","email":"bob@example.com"}'` | 400 naming `id`; `curl $B` still lists one user |
-| E7 | `curl -i -X POST $B -H "$J" -d '{"name":"Bob","email":"bob@example.com"}'` | 201, id 2 |
+| E7 | `curl -i -X POST $B -H "$J" -d '{"name":"Bob","email":"bob@example.com"}'` | 201, id 3 (the insert rejected in E5 used up id 2) |
 | E8 | `curl -i $B/1`, `curl -i $B/999`, `curl -i $B/abc` | 200 with Ivy; 404 `User 999 not found`; 400 |
 | E9 | `curl -i -X PUT $B/1 -H "$J" -d '{"name":"Ivy Jones","version":0}'` | 200, name `Ivy Jones`, version 1, email unchanged |
 | E10 | E9 again (still version 0) | 409 stale version; `curl $B/1` shows `Ivy Jones`, version 1 |
@@ -141,7 +141,7 @@ J='Content-Type: application/json'
 | E12 | PUT `$B/1` with `{"name":"","version":1}`, then with `{"name":"Ivy Brown"}` | 400 each |
 | E13 | `curl -i -X PUT $B/999 -H "$J" -d '{"name":"X","version":0}'` | 404 |
 | E14 | `curl -i -X POST $B -H "$J" -d '{"name":'` | 400 |
-| E15 | `curl -i -X DELETE $B/2`, the same again, then `curl $B` | 204; 404; only Ivy listed |
+| E15 | `curl -i -X DELETE $B/3`, the same again, then `curl $B` | 204; 404; only Ivy listed |
 | E16 | `curl -s localhost:8080/v3/api-docs`, `curl -I localhost:8080/swagger-ui/index.html` | JSON with the five operations; 200 |
 
 No step returns 500.
