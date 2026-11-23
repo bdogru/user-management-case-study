@@ -39,6 +39,7 @@ public class UserController {
 	}
 
 	@PostMapping
+	@ResponseStatus(HttpStatus.CREATED) // for the OpenAPI document; ResponseEntity.created sets it at runtime
 	public ResponseEntity<UserResponse> create(@Valid @RequestBody CreateUserRequest request) {
 		UserResponse user = service.create(request);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user.id()).toUri();
