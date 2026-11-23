@@ -23,4 +23,6 @@ changed the work, disputes and owner decisions.
 ## Step 2 — Frontend
 
 - **PR #4 (screen and CI job).** Codex approved it in the first round, without findings.
+- **O-1 (PR #5).** The owner asked for a "How it was built" section in the README; the time figures
+  in it come from the owner.
 - **Disputes:** none. **Owner decisions:** none.

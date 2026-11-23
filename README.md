@@ -8,6 +8,15 @@ client. A user has a name, which can be changed, and an email address, which is 
 Done: the backend (step 1) and the frontend (step 2). See [ROADMAP.md](ROADMAP.md) and [plan/](plan/);
 how the AI agents worked together is in [docs/ai-collaboration.md](docs/ai-collaboration.md).
 
+## How it was built
+
+Claude Code wrote the code, Codex reviewed every PR, and the owner decided disputes and merged. The
+instructions both agents followed are in [docs/](docs/).
+
+Time: about two hours of the owner's active time over about two hours of elapsed time for the five
+PRs, including about 30 minutes at the start to fix Codex's access to GitHub; plus about 10 minutes
+beforehand to write the agent instructions.
+
 ## Prerequisites
 
 - JDK 21. Maven is not needed: the wrapper downloads it.
