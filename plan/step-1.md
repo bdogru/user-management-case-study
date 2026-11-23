@@ -148,9 +148,10 @@ No step returns 500.
 
 ## End-to-end result
 
-Run on 2026-11-23 against commit `9f145c0` (the head of PR #2) on Windows 10, with the application JVM
-in the `tr_TR` locale, after `./mvnw clean verify` and `./mvnw spring-boot:run`: **E1–E16 pass**, and no
-response is a 500.
+Run on 2026-11-23 against commit `14168fa` (the final head of PR #2, after owner findings O-1 and O-2)
+on Windows 10, with the application JVM in the `tr_TR` locale, from a fresh checkout with
+`./mvnw verify` and `./mvnw spring-boot:run`: **E1–E16 pass**, no response is a 500, and the OpenAPI
+document lists `POST /api/users` as 201.
 
 - E7 and E15: Bob gets id 3, not 2, because the insert rejected in E5 uses up identity value 2. The
   plan was corrected in 1/1.
