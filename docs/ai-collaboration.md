@@ -22,4 +22,5 @@ changed the work, disputes and owner decisions.
 
 ## Step 2 — Frontend
 
-- **PR #4 (screen and CI job).** Review pending.
+- **PR #4 (screen and CI job).** Codex approved it in the first round, without findings.
+- **Disputes:** none. **Owner decisions:** none.
