@@ -8,8 +8,8 @@ assignment PDF and this whole document at the start of every run.
 
 ## 1. Inputs and roles
 
-- The assignment PDF given to you with this prompt is the only source of requirements. Read it first.
-  Never commit it to the repository.
+- The assignment PDF in `docs/` (git-ignored) is the only source of requirements. Read it first.
+  Never commit it.
 - Repository: `bdogru/user-management-case-study`. Everything in it and on GitHub is in English, with no exceptions.
 
 | Role | Who | Does | Never does |
@@ -26,21 +26,21 @@ assignment PDF and this whole document at the start of every run.
 
 | Area | Allowed |
 |---|---|
-| Build | Maven with the Maven wrapper, Java 21 |
+| Build | Maven with the Maven wrapper, Java 21, `spring-boot-maven-plugin` |
 | Framework | Spring Boot 4.2.x (latest patch), versions managed by the Spring Boot parent |
 | Backend | `spring-boot-starter-webmvc`, `spring-boot-starter-validation`, `spring-boot-starter-data-jpa`, `com.h2database:h2` (runtime) |
 | OpenAPI | `org.springdoc:springdoc-openapi-starter-webmvc-ui`, latest 3.x release (the only explicit version) |
-| Backend tests | `spring-boot-starter-webmvc-test`; `spring-boot-starter-data-jpa-test` only if a test does not compile without it |
+| Backend tests | `spring-boot-starter-webmvc-test`, `spring-boot-starter-data-jpa-test`, `spring-boot-starter-validation-test` |
 | Frontend | Angular 22.x, only the packages the Angular CLI generates for an app without routing, SSR and tests |
 | CI | GitHub Actions: checkout, setup-java, setup-node |
 
 - Anything not in this table needs an `OWNER DECISION` before it is added. That includes Lombok,
   mapping libraries, Spring Security, Flyway, Liquibase, Actuator, DevTools, Testcontainers, Docker
   Compose, UI component libraries, CSS frameworks and state libraries.
+- start.spring.io also adds `spring-boot-h2console` when H2 is selected. It is not needed: remove
+  it from the generated `pom.xml`.
 - Check names and versions against the official documentation, not memory. If a starter was renamed
   in 4.2, use the current name for the same thing.
-- If no springdoc 3.x release works with Spring Boot 4.2, use the latest Spring Boot 4.1.x patch
-  instead and say so in the README.
 
 ### Design
 
@@ -52,8 +52,10 @@ assignment PDF and this whole document at the start of every run.
 - One central exception handler, standard problem-details error body, no 500 for client mistakes.
 - OpenAPI document and Swagger UI generated from the code.
 - No authentication or authorisation of any kind.
+- Any case conversion uses `Locale.ROOT`. Behaviour and tests must not depend on the default locale
+  of the machine (the development machine's is Turkish; CI runs on Ubuntu).
 
-The roadmap PR proposes, with a one-line reason each: what an update containing an `email` field does
+The planning PR proposes, with a one-line reason each: what an update containing an `email` field does
 (reject or ignore), how the client sends the version, and how email case is treated.
 
 ---
@@ -65,7 +67,8 @@ assignment asks for a minimal solution and says that extra layers, abstractions 
 improve the result.
 
 The test for every file, class, method, dependency, configuration entry, test and paragraph:
-**if removing it breaks no requirement in the PDF and no decision in section 2, it must not exist.**
+**if removing it breaks no requirement in the PDF and nothing this document asks for, it must not
+exist.**
 
 Size guide. Going beyond it needs a reason in the PR description:
 
@@ -105,18 +108,21 @@ placeholder content the CLI generates.
 
 ### Structure
 
-- First PR: `ROADMAP.md` and an initial README. Then the steps, as few as possible (target: backend,
-  frontend).
-- Each step is a sequence of PRs `X/0 .. X/last`:
-  - `X/0` planning: adds `plan/step-X.md` with the PRs of the step, their acceptance criteria, and
-    the detailed end-to-end test plan.
-  - middle PRs: implementation.
-  - `X/last`: runs the end-to-end plan, records the result, updates README, roadmap and plan.
-- One open PR at a time. Titles: `[Roadmap] ...`, `[Step X/N] ...`. Branches: `roadmap`,
-  `step-X-N-slug`.
+- First PR, the only planning PR: `ROADMAP.md`, an initial README and one `plan/step-X.md` per
+  step. Each plan lists the PRs of its step with acceptance criteria and contains the detailed
+  end-to-end test plan. As few steps as possible (target: backend, frontend).
+- Each step is then a sequence of PRs `X/1 .. X/last`:
+  - `X/1 ..`: implementation.
+  - `X/last`: runs the end-to-end plan, records the result, updates README, roadmap and plan, and
+    adds a few factual lines to `docs/ai-collaboration.md` (findings that changed the code,
+    disputes, owner decisions).
+- The first implementation PR of step 1 adds the CI workflow: build and test on every code change.
+- One open PR at a time. Titles: `[Plan] ...`, `[Step X/N] ...`. Branches: `bdogru/plan`,
+  `bdogru/step-X-N-slug`.
 - A PR that only changes `*.md` and `plan/` is doc-only. CI does not run for doc-only changes.
-- Format reference for roadmap and plan files: `D:\IdeaProjects\frontie`, or `bdogru/frontie` on
-  GitHub. Copy the format, never the content.
+- Format reference for roadmap and plan files, if you can reach it: `D:\IdeaProjects\frontie`
+  (private repository `bdogru/frontie`). Copy the format, never the content. If you cannot reach
+  it, the structure described here is enough.
 
 ### Comments
 
@@ -170,7 +176,7 @@ A comment without a signature is from the OWNER. Refer to code as `path:line`.
 This is your most important job. Do it before any other check.
 
 1. List every file the PR adds or changes, and every dependency it adds.
-2. For each one, name the requirement in the PDF or the decision in section 2 that needs it.
+2. For each one, name the requirement in the PDF or the part of this document that needs it.
    Anything you cannot map is a `FINDING [blocking]`, with the suggested fix "remove".
 3. Compare `pom.xml` and `package.json` with the table in section 2, line by line. Any extra
    dependency or plugin is a blocking finding.
@@ -178,12 +184,12 @@ This is your most important job. Do it before any other check.
 5. Inside the files, look for the items in the over-building list in section 3, and for unused
    code: classes, methods, fields, imports, configuration entries or styles that nothing references.
 6. Check the frontend against section 4, including leftover generated placeholder content.
-7. For roadmap and plan PRs, apply the same test to what is planned: a planned item that no
+7. For the planning PR, apply the same test to what is planned: a planned item that no
    requirement needs is a finding before any code exists.
 
 ### Then check correctness
 
-- Plan and roadmap PRs: every requirement in the PDF is covered; acceptance criteria can be
+- Planning PR: every requirement in the PDF is covered by some PR; acceptance criteria can be
   verified; the end-to-end test plan can be executed step by step; the open decisions in section 2
   are answered.
 - Code PRs: check out the branch, build, run the tests, start the application and try the claimed
