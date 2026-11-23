@@ -1,0 +1,34 @@
+<h1>Users</h1>
+
+<table>
+  <thead>
+    <tr><th>Name</th><th>Email</th><th></th></tr>
+  </thead>
+  <tbody>
+    @for (user of users(); track user.id) {
+      <tr>
+        <td>{{ user.name }}</td>
+        <td>{{ user.email }}</td>
+        <td>
+          <button type="button" (click)="edit(user)">Edit</button>
+          <button type="button" (click)="remove(user)">Delete</button>
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>
+
+<form (submit)="$event.preventDefault(); save()">
+  <label>Name <input [value]="name()" (input)="name.set($any($event.target).value)" /></label>
+  <label>
+    Email
+    <input [value]="email()" (input)="email.set($any($event.target).value)" [readOnly]="editing() !== null" />
+  </label>
+  @if (editing()) {
+    <button type="submit">Save</button>
+    <button type="button" (click)="cancel()">Cancel</button>
+  } @else {
+    <button type="submit">Create</button>
+  }
+</form>
+<p class="error">{{ error() }}</p>
