@@ -1,4 +1,4 @@
-package io.github.bdogru.usermanagement;
+package io.github.bdogru.usermanagement.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

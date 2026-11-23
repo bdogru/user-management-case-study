@@ -1,4 +1,4 @@
-package io.github.bdogru.usermanagement;
+package io.github.bdogru.usermanagement.exception;
 
 import java.util.stream.Collectors;
 
@@ -19,7 +19,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @RestControllerAdvice
-public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
+class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler
 	ProblemDetail handleNotFound(UserNotFoundException ex) {

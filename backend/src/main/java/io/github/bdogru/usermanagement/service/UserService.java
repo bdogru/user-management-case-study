@@ -1,7 +1,14 @@
-package io.github.bdogru.usermanagement;
+package io.github.bdogru.usermanagement.service;
 
 import java.util.List;
 import java.util.Locale;
+
+import io.github.bdogru.usermanagement.dto.CreateUserRequest;
+import io.github.bdogru.usermanagement.dto.UpdateUserRequest;
+import io.github.bdogru.usermanagement.dto.UserResponse;
+import io.github.bdogru.usermanagement.entity.User;
+import io.github.bdogru.usermanagement.exception.UserNotFoundException;
+import io.github.bdogru.usermanagement.repository.UserRepository;
 
 import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
@@ -12,7 +19,7 @@ public class UserService {
 
 	private final UserRepository repository;
 
-	public UserService(UserRepository repository) {
+	UserService(UserRepository repository) {
 		this.repository = repository;
 	}
 

@@ -1,8 +1,12 @@
-package io.github.bdogru.usermanagement;
+package io.github.bdogru.usermanagement.controller;
 
 import java.net.URI;
 import java.util.List;
 
+import io.github.bdogru.usermanagement.dto.CreateUserRequest;
+import io.github.bdogru.usermanagement.dto.UpdateUserRequest;
+import io.github.bdogru.usermanagement.dto.UserResponse;
+import io.github.bdogru.usermanagement.service.UserService;
 import jakarta.validation.Valid;
 
 import org.springframework.http.HttpStatus;
@@ -20,40 +24,40 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 @RequestMapping("/api/users")
-public class UserController {
+class UserController {
 
 	private final UserService service;
 
-	public UserController(UserService service) {
+	UserController(UserService service) {
 		this.service = service;
 	}
 
 	@GetMapping
-	public List<UserResponse> list() {
+	List<UserResponse> list() {
 		return service.findAll();
 	}
 
 	@GetMapping("/{id}")
-	public UserResponse get(@PathVariable long id) {
+	UserResponse get(@PathVariable long id) {
 		return service.findById(id);
 	}
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED) // for the OpenAPI document; ResponseEntity.created sets it at runtime
-	public ResponseEntity<UserResponse> create(@Valid @RequestBody CreateUserRequest request) {
+	ResponseEntity<UserResponse> create(@Valid @RequestBody CreateUserRequest request) {
 		UserResponse user = service.create(request);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user.id()).toUri();
 		return ResponseEntity.created(location).body(user);
 	}
 
 	@PutMapping("/{id}")
-	public UserResponse update(@PathVariable long id, @Valid @RequestBody UpdateUserRequest request) {
+	UserResponse update(@PathVariable long id, @Valid @RequestBody UpdateUserRequest request) {
 		return service.update(id, request);
 	}
 
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void delete(@PathVariable long id) {
+	void delete(@PathVariable long id) {
 		service.delete(id);
 	}
 

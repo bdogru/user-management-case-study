@@ -1,4 +1,4 @@
-package io.github.bdogru.usermanagement;
+package io.github.bdogru.usermanagement.exception;
 
 public class UserNotFoundException extends RuntimeException {
 

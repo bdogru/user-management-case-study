@@ -1,4 +1,4 @@
-package io.github.bdogru.usermanagement;
+package io.github.bdogru.usermanagement.controller;
 
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.matchesPattern;
@@ -13,6 +13,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.Locale;
 
 import com.jayway.jsonpath.JsonPath;
+import io.github.bdogru.usermanagement.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

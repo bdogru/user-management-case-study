@@ -1,4 +1,4 @@
-package io.github.bdogru.usermanagement;
+package io.github.bdogru.usermanagement.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
