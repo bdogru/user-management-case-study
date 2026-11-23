@@ -18,6 +18,8 @@ Time: about two hours of the owner's active time over about two hours of elapsed
 PRs, including about 30 minutes at the start to fix Codex's access to GitHub; plus about 10 minutes
 beforehand to write the agent instructions.
 
+Step 3 (Docker Compose) was added afterwards and took about 15 minutes.
+
 ## Run with Docker
 
 Docker is the only prerequisite. In the repository root:

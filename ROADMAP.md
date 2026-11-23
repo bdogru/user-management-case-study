@@ -67,7 +67,7 @@ only. The behaviour it relies on is tested in the backend.
 
 ### Step 3: One-command start with Docker Compose
 
-> **Status: in review** — 3/1 in one PR, at the owner's request. [plan/step-3.md](plan/step-3.md)
+> **Status: done** — 3/1 in PR #6. [plan/step-3.md](plan/step-3.md)
 
 **What**: `docker compose up --build` builds and starts the backend and the frontend; Docker is the
 only prerequisite.
