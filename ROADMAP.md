@@ -32,7 +32,8 @@ navigation. Docker Compose, an optional extension in the brief, is not planned.
 
 ### Step 1: Backend
 
-> **Status: planned** — [plan/step-1.md](plan/step-1.md)
+> **Status: done** — 1/1 in PR #2 (backend and CI), 1/2 in PR #3 (end-to-end run and docs).
+> [plan/step-1.md](plan/step-1.md)
 
 **What**: Spring Boot REST API for users on H2: validation, one exception handler with problem
 details, email immutability, a unique email, optimistic locking, generated OpenAPI. CI workflow.

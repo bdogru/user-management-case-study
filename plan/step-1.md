@@ -106,7 +106,7 @@ against the real H2 database and its constraints.
 |---|---|---|
 | T1 | With the JVM default locale set to `tr_TR` (restored afterwards), create `Ivy.Smith@Example.COM` → 201, `Location`, body with `ivy.smith@example.com` and version 0 | create; D3 with `Locale.ROOT` (a default-locale conversion gives `ıvy` under `tr_TR`, so the test fails on any machine, CI included) |
 | T2 | List after creating two users → both returned | list |
-| T3 | Create with blank name and invalid email, `Accept-Language: tr-TR` → 400, English detail naming both fields | validation; D4 |
+| T3 | With the JVM default locale set to `tr_TR` and `Accept-Language: tr-TR`, create with blank name and invalid email → 400, English detail naming both fields | validation; D4 on any machine |
 | T4 | Create with an email differing only in case from an existing one → 409 | contract 6, caught by the constraint |
 | T5 | Get, update and delete an unknown id → 404 | 404 handling |
 | T6 | Update the name with the current version → 200, new name, version 1, email unchanged | update |
@@ -145,6 +145,18 @@ J='Content-Type: application/json'
 | E16 | `curl -s localhost:8080/v3/api-docs`, `curl -I localhost:8080/swagger-ui/index.html` | JSON with the five operations; 200 |
 
 No step returns 500.
+
+## End-to-end result
+
+Run on 2026-11-23 against commit `9f145c0` (the head of PR #2) on Windows 10, with the application JVM
+in the `tr_TR` locale, after `./mvnw clean verify` and `./mvnw spring-boot:run`: **E1–E16 pass**, and no
+response is a 500.
+
+- E7 and E15: Bob gets id 3, not 2, because the insert rejected in E5 uses up identity value 2. The
+  plan was corrected in 1/1.
+- A first run failed at E15: the delete returned 204 but removed nothing. The cause was stale compiled
+  classes left in `target/` by the mutation checks of 1/1, not the code; after a `clean` build the
+  run passed.
 
 ## Risks
 
