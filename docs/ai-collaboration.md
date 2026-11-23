@@ -19,3 +19,7 @@ changed the work, disputes and owner decisions.
   (`controller`, `service`, `repository`, `entity`, `dto`, `exception`), with only what another
   package uses left public.
 - **Disputes:** none. **Owner decisions:** keep `backend/.gitignore` (O-1).
+
+## Step 2 — Frontend
+
+- **PR #4 (screen and CI job).** Review pending.
