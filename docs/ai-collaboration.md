@@ -26,3 +26,9 @@ changed the work, disputes and owner decisions.
 - **O-1 (PR #5).** The owner asked for a "How it was built" section in the README; the time figures
   in it come from the owner.
 - **Disputes:** none. **Owner decisions:** none.
+
+## Step 3 — Docker Compose
+
+- **Owner decisions.** After the roadmap was done, the owner asked for a one-command start with
+  Docker Compose: two containers (D6) in one PR (D7).
+- **PR #6.** Codex approved it in the first round, without findings.

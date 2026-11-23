@@ -5,7 +5,8 @@ client. A user has a name, which can be changed, and an email address, which is 
 
 ## Status
 
-Done: the backend (step 1) and the frontend (step 2). See [ROADMAP.md](ROADMAP.md) and [plan/](plan/);
+Done: the backend (step 1), the frontend (step 2) and a one-command start with Docker (step 3). See
+[ROADMAP.md](ROADMAP.md) and [plan/](plan/);
 how the AI agents worked together is in [docs/ai-collaboration.md](docs/ai-collaboration.md).
 
 ## How it was built
@@ -17,12 +18,25 @@ Time: about two hours of the owner's active time over about two hours of elapsed
 PRs, including about 30 minutes at the start to fix Codex's access to GitHub; plus about 10 minutes
 beforehand to write the agent instructions.
 
-## Prerequisites
+Step 3 (Docker Compose) was added afterwards and took about 15 minutes.
+
+## Run with Docker
+
+Docker is the only prerequisite. In the repository root:
+
+```bash
+docker compose up --build
+```
+
+Then open `http://localhost:4200`. The API and Swagger UI are on port 8080, as below. Stop with
+`docker compose down`.
+
+## Run without Docker
+
+Prerequisites:
 
 - JDK 21. Maven is not needed: the wrapper downloads it.
 - Node.js 24 (Angular 22 needs `^22.22.3` or `^24.15.0`).
-
-## Run
 
 Start the backend first, then the frontend, and open `http://localhost:4200`.
 
@@ -72,5 +86,4 @@ the application stops.
   - A backend test that fires two updates at the same time, to cover the flush-time conflict, not only
     the explicit version check.
 - **API documentation.** The OpenAPI document lists no 400, 404 or 409 responses yet.
-- **One command to start.** Docker Compose, or serving the Angular build from Spring Boot.
 - **A persistent database** (PostgreSQL with migrations) instead of H2 in memory.
