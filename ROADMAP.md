@@ -1,13 +1,14 @@
 # User Management — Roadmap
 
 The requirements come from the case-study brief, which is kept locally and not committed. The work
-is split into two steps. Each step is planned in `plan/step-N.md` and ships as a short sequence of
-PRs (`[Step X/N]`), reviewed by the reviewer agent and merged by the owner.
+is split into two steps, plus a third the owner asked for afterwards. Each step is planned in
+`plan/step-N.md` and ships as a short sequence of PRs (`[Step X/N]`), reviewed by the reviewer agent
+and merged by the owner.
 
 ## Out of scope
 
 Per the brief: authentication, authorisation, pagination, deployment, additional screens or
-navigation. Docker Compose, an optional extension in the brief, is not planned.
+navigation.
 
 ## Requirements and where they are delivered
 
@@ -25,6 +26,7 @@ navigation. Docker Compose, an optional extension in the brief, is not planned.
 | README with the commands to build and run | 1/2 (backend), 2/2 (frontend) |
 | Optional: OpenAPI documentation | 1/1 |
 | Optional: possible improvements (concurrent edits, further tests) | concurrent edits handled in 1/1 (optimistic locking); the rest in the README at 2/2 |
+| Optional: Docker Compose to start everything with one command | 3/1 |
 
 ---
 
@@ -60,3 +62,18 @@ builds the frontend.
 
 **Tests**: none in the frontend; it is generated without tests and the brief assesses it for function
 only. The behaviour it relies on is tested in the backend.
+
+---
+
+### Step 3: One-command start with Docker Compose
+
+> **Status: in review** — 3/1 in one PR, at the owner's request. [plan/step-3.md](plan/step-3.md)
+
+**What**: `docker compose up --build` builds and starts the backend and the frontend; Docker is the
+only prerequisite.
+
+**PRs**: 3/1 Docker files, end-to-end run and documentation, in one PR (owner decision).
+
+**Manual test**: the end-to-end plan in `plan/step-3.md`.
+
+**Tests**: none new; the image build packages what CI already tests.
