@@ -104,7 +104,7 @@ real H2 database and its constraints.
 
 | # | Test | Proves |
 |---|---|---|
-| T1 | Create `Ivy.Smith@Example.COM` → 201, `Location`, body with `ivy.smith@example.com` and version 0 | create; D3 with `Locale.ROOT` (a default-locale conversion gives `ıvy` on the development machine) |
+| T1 | With the JVM default locale set to `tr_TR` (restored afterwards), create `Ivy.Smith@Example.COM` → 201, `Location`, body with `ivy.smith@example.com` and version 0 | create; D3 with `Locale.ROOT` (a default-locale conversion gives `ıvy` under `tr_TR`, so the test fails on any machine, CI included) |
 | T2 | List after creating two users → both returned | list |
 | T3 | Create with blank name and invalid email, `Accept-Language: tr-TR` → 400, English detail naming both fields | validation; D4 |
 | T4 | Create with an email differing only in case from an existing one → 409 | contract 6, caught by the constraint |
